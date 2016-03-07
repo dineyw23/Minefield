@@ -22,7 +22,7 @@ FieldType is an enumerated type to represent the four possible states of the min
 
 `FieldType get(int x, int y)` Retrieves the state of the field at location (x,y)
 
-`bool isSafe(int x, int y)` **NOT YET IMPLEMENTED** Returns whether or not _map at (x,y) has a mine and throws an exception if the location is illegal
+`bool isSafe(int x, int y)` Returns whether or not _map at (x,y) has a mine and throws an exception if the location is illegal
 
 `void revealAdjacent(int x, int y)` **NOT YET IMPLEMENTED** Changes the location from EMPTY_HIDDEN to EMPTY_SHOWN for the location and any valid locations adjacent (immediately above, below, left, or right as printed) to the provided (x,y) location
 
