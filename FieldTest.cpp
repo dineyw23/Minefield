@@ -26,7 +26,7 @@ TEST(FieldTest, placeMineInBounds)
 TEST(FieldTest, safePosition)
 {
   Field minefield;
-  //minefield.placeMine(4,2);
+  minefield.placeMine(4,2);
   ASSERT_TRUE(minefield.isSafe(4,3));  
 }
 
@@ -36,3 +36,19 @@ TEST(FieldTest, notSafePosition)
   minefield.placeMine(4,2);
   ASSERT_FALSE(minefield.isSafe(4,2));  
 }
+TEST(FieldTest, illegalPosition)
+{
+  Field minefield;
+  bool check = false;
+  //minefield.placeMine(10,2);
+  try
+  {
+    minefield.isSafe(14,3);  
+  }
+  catch(...)
+  {
+    check = true;
+  }
+  ASSERT_EQ(true,check);
+}
+
