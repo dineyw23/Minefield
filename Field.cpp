@@ -57,12 +57,12 @@ FieldType Field::get(int x, int y)
   }
   else if(_map[x][y] == MINE_SHOWN) 
   {
-    return true;
+    return false;
   }
   else if(_map[x][y] == MINE_HIDDEN)
-    return true;
-  else
     return false;
+  else
+    return true;
   }
 
 /**
