@@ -29,3 +29,10 @@ TEST(FieldTest, safePosition)
   //minefield.placeMine(4,2);
   ASSERT_TRUE(minefield.isSafe(4,3));  
 }
+
+TEST(FieldTest, notSafePosition)
+{
+  Field minefield;
+  minefield.placeMine(4,2);
+  ASSERT_FALSE(minefield.isSafe(4,2));  
+}
