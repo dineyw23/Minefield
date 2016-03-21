@@ -52,3 +52,28 @@ TEST(FieldTest, illegalPosition)
   ASSERT_EQ(true,check);
 }
 
+
+TEST(FieldTest, boudaryReveal)
+{
+  Field minefield;
+  bool check = false;
+  minefield.placeMine(9,2);
+  try
+  {
+    minefield.revealAdjacent(14,3);  
+  }
+  catch(...)
+  {
+    check = true;
+  }
+  ASSERT_EQ(true,check);
+
+}
+
+TEST(FieldTest, RnotSafePosition)
+{
+  Field minefield;
+  minefield.placeMine(4,2);
+  minefield.revealAdjacent(4,2);  
+  ASSERT_EQ(MINE_SHOWN,minefield.get(4,2));  
+}

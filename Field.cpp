@@ -77,5 +77,24 @@ void Field::revealAdjacent(int x, int y)
   {
     throw "Out of bounds";
   }
-   
+  else if( x >= 1 && get(x - 1,y) == MINE_HIDDEN)
+  {//down
+    _map[x-1][y] = MINE_SHOWN;
+  }
+  else if( x < FIELD_DIMENSION && get(x+1,y) == MINE_HIDDEN)
+  {//up
+    _map[x+1][y] = MINE_SHOWN;
+  }
+  else if(y < FIELD_DIMENSION  && get(x,y+1) == MINE_HIDDEN)
+  {//right
+    _map[x][y+1] = MINE_SHOWN;
+  }
+  else if(y >= 1 && get(x,y-1) == MINE_HIDDEN) 
+  {//left
+    _map[x][y-1] = MINE_SHOWN;
+  }
+  else if(get(x,y) == MINE_HIDDEN)
+  {//Exact
+    _map[x][y] = MINE_SHOWN;
+  }   
 }
