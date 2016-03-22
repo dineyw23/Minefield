@@ -23,57 +23,60 @@ TEST(FieldTest, placeMineInBounds)
 	ASSERT_EQ( MINE_HIDDEN, minefield.get(4,5) );
 }
 
-TEST(FieldTest, safePosition)
+TEST(FieldTest, isSafeEmpty)
 {
-  Field minefield;
-  minefield.placeMine(4,2);
-  ASSERT_TRUE(minefield.isSafe(4,3));  
+	Field minefield;
+	
+	minefield.placeMine(4,5);
+	ASSERT_TRUE( minefield.isSafe(1,1) );
 }
 
-TEST(FieldTest, notSafePosition)
+TEST(FieldTest, isSafeBoom)
 {
-  Field minefield;
-  minefield.placeMine(4,2);
-  ASSERT_FALSE(minefield.isSafe(4,2));  
-}
-TEST(FieldTest, illegalPosition)
-{
-  Field minefield;
-  bool check = false;
-  //minefield.placeMine(10,2);
-  try
-  {
-    minefield.isSafe(14,3);  
-  }
-  catch(...)
-  {
-    check = true;
-  }
-  ASSERT_EQ(true,check);
+	Field minefield;
+	
+	minefield.placeMine(4,5);
+	ASSERT_FALSE( minefield.isSafe(4,5) );
 }
 
-
-TEST(FieldTest, boudaryReveal)
+TEST(FieldTest, isSafeOutOfBounds)
 {
-  Field minefield;
-  bool check = false;
-  minefield.placeMine(9,2);
-  try
-  {
-    minefield.revealAdjacent(14,3);  
-  }
-  catch(...)
-  {
-    check = true;
-  }
-  ASSERT_EQ(true,check);
-
+	Field minefield;
+	bool except = false;
+	try
+	{
+		bool safe;
+		safe = minefield.isSafe(-1,11);
+	}
+	catch(...)
+	{
+		except = true;
+	}
+	ASSERT_TRUE(except);
 }
 
-TEST(FieldTest, RnotSafePosition)
+TEST(FieldTest, revealAdjacentEmptyAllShown)
 {
-  Field minefield;
-  minefield.placeMine(4,2);
-  minefield.revealAdjacent(4,2);  
-  ASSERT_EQ(MINE_SHOWN,minefield.get(4,2));  
+	Field minefield;
+	
+	minefield.revealAdjacent(1,2);
+	ASSERT_EQ( EMPTY_SHOWN, minefield.get(0,0) );
+	ASSERT_EQ( EMPTY_SHOWN, minefield.get(9,9) );
+	ASSERT_EQ( EMPTY_SHOWN, minefield.get(0,9) );
+	ASSERT_EQ( EMPTY_SHOWN, minefield.get(9,0) );
+	ASSERT_EQ( EMPTY_SHOWN, minefield.get(1,2) );
+}
+
+TEST(FieldTest, revealAdjacentFirstRowEmpty)
+{
+	Field minefield;
+
+	for(int y=0; y<10; y++)
+		minefield.placeMine(1,y);
+	
+	minefield.revealAdjacent(2,0);
+	ASSERT_EQ( EMPTY_SHOWN, minefield.get(3,0) );
+	ASSERT_EQ( EMPTY_SHOWN, minefield.get(9,9) );
+	ASSERT_EQ( EMPTY_HIDDEN, minefield.get(0,0) );
+	ASSERT_EQ( MINE_HIDDEN, minefield.get(1,0) );
 }
