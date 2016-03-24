@@ -23,9 +23,10 @@ class Field
 		FieldType get(int,int);
 		void revealAdjacent(int, int);
 		void placeMine(int, int);
-		
+		void set(int x,int y);
 
 	private:
+		bool inBounds(int,int);
 		static const int FIELD_DIMENSION = 10;
 		std::vector< std::vector<FieldType> > _map;	
 };

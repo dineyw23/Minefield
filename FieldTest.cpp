@@ -34,7 +34,8 @@ TEST(FieldTest, isSafeEmpty)
 TEST(FieldTest, isSafeBoom)
 {
 	Field minefield;
-	
+  //Just for branch probablities
+  minefield.placeMine(-2,5);	
 	minefield.placeMine(4,5);
 	ASSERT_FALSE( minefield.isSafe(4,5) );
 }
@@ -42,17 +43,11 @@ TEST(FieldTest, isSafeBoom)
 TEST(FieldTest, isSafeOutOfBounds)
 {
 	Field minefield;
-	bool except = false;
-	try
-	{
-		bool safe;
-		safe = minefield.isSafe(-1,11);
-	}
-	catch(...)
-	{
-		except = true;
-	}
-	ASSERT_TRUE(except);
+  //Just for branch probablities
+  minefield.placeMine(-2,5);	
+	bool safe;
+	safe = minefield.isSafe(-1,11);
+	ASSERT_FALSE(safe);
 }
 
 TEST(FieldTest, revealAdjacentEmptyAllShown)
@@ -80,3 +75,62 @@ TEST(FieldTest, revealAdjacentFirstRowEmpty)
 	ASSERT_EQ( EMPTY_HIDDEN, minefield.get(0,0) );
 	ASSERT_EQ( MINE_HIDDEN, minefield.get(1,0) );
 }
+
+
+TEST(FieldTest, outOfBounds)
+{
+  Field minefield;
+  bool check = false;
+  try
+  {
+    minefield.get(-1,0);
+  }
+  catch(...)
+  {
+    check = true;
+  }
+  ASSERT_EQ(check,true);
+
+  bool check2 = false;
+  try
+  {
+    minefield.get(1,100);
+  }
+  catch(...)
+  {
+    check2 = true;
+  }
+  ASSERT_EQ(check2,true);
+
+}
+
+TEST(FieldTest, revealAdjacentMineHidden)
+{
+  Field minefield;
+ //Just for branch probabilities gcov
+  minefield.placeMine(-1,-2);
+
+  minefield.placeMine(3,3);
+  minefield.revealAdjacent(3,3); 
+  minefield.placeMine(6,6);
+  ASSERT_EQ(MINE_HIDDEN,minefield.get(3,3));
+  minefield.revealAdjacent(6,6); 
+  ASSERT_EQ(MINE_HIDDEN,minefield.get(6,6));
+}
+
+TEST(FieldTest, revealAdjacentMineShown)
+{
+  Field minefield;
+  minefield.set(1,1);
+  minefield.revealAdjacent(1,1);
+  ASSERT_EQ(MINE_SHOWN,minefield.get(1,1));
+}
+
+TEST(FieldTest, setOutOfBounds)
+{
+  Field minefield;
+  minefield.placeMine(1,1);
+  minefield.set(1,-1);
+  ASSERT_EQ(MINE_HIDDEN,minefield.get(1,1));
+}
+
