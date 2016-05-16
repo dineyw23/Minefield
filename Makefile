@@ -31,5 +31,5 @@ FieldTest.o : FieldTest.cpp \
                      Field.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c FieldTest.cpp
 
-FieldTest : Field.o FieldTest.o gtest_main.a
+FieldTest : Field.o FieldTest.o $(GTEST_HEADERS) 
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
