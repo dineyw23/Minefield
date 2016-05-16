@@ -1,2 +1,3 @@
 language: C++
-script: make test
+script: make
+        make test
