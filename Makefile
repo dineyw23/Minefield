@@ -20,16 +20,13 @@ all : $(TESTS)
 clean :
 	rm -f $(TESTS) gtest.a gtest_main.a *.o *.gcov *.gcda *.gcno
 
-test :
-	./FieldTest
-
 # Builds the Field class and associated FieldTest
 Field.o : Field.cpp Field.h $(GTEST_DIR)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c Field.cpp
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c Field.cpp -lgtest
 
 FieldTest.o : FieldTest.cpp \
                      Field.h $(GTEST_DIR)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c FieldTest.cpp
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c FieldTest.cppp -lgtest
 
-FieldTest : Field.o FieldTest.o $(GTEST_DIR) 
+FieldTest : Field.o FieldTest.o $(GTEST_DIR)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
