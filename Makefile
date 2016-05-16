@@ -26,7 +26,7 @@ Field.o : Field.cpp Field.h $(GTEST_DIR)
 
 FieldTest.o : FieldTest.cpp \
                      Field.h $(GTEST_DIR)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c FieldTest.cppp -lgtest
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c FieldTest.cpp -lgtest
 
 FieldTest : Field.o FieldTest.o $(GTEST_DIR)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
