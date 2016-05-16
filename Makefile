@@ -4,7 +4,7 @@
 
 # Points to the root of Google Test. Change it to reflect where your
 # clone of the googletest repo is
-GTEST_DIR =  /usr/local/lib/libgtest_main.a /usr/local/lib/libgtest.a
+GTEST_DIR = /usr/local/lib/libgtest_main.a /usr/local/lib/libgtest.a
 
 # Flags passed to the preprocessor and compiler
 CPPFLAGS += --coverage -isystem -std=c++11 
@@ -24,12 +24,12 @@ test :
 	./FieldTest
 
 # Builds the Field class and associated FieldTest
-Field.o : Field.cpp Field.h $(GTEST_HEADERS)
+Field.o : Field.cpp Field.h $(GTEST_DIR)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c Field.cpp
 
 FieldTest.o : FieldTest.cpp \
-                     Field.h $(GTEST_HEADERS)
+                     Field.h $(GTEST_DIR)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c FieldTest.cpp
 
-FieldTest : Field.o FieldTest.o $(GTEST_HEADERS) 
+FieldTest : Field.o FieldTest.o $(GTEST_DIR) 
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
