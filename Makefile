@@ -5,16 +5,13 @@
 # Points to the root of Google Test. Change it to reflect where your
 # clone of the googletest repo is
 GTEST_DIR =  /usr/local/lib/libgtest_main.a /usr/local/lib/libgtest.a
+
 # Flags passed to the preprocessor and compiler
-CPPFLAGS += --coverage -isystem $(GTEST_DIR)/include
+CPPFLAGS += --coverage -isystem -std=c++11 
 CXXFLAGS += -g -Wall -Wextra -pthread
 
 # All tests produced by this Makefile.
 TESTS = FieldTest
-
-# All Google Test headers. Adjust only if you moved the subdirectory
-GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
-                $(GTEST_DIR)/include/gtest/internal/*.h
 
 # House-keeping build targets.
 
@@ -25,23 +22,6 @@ clean :
 
 test :
 	./FieldTest
-
-# Builds gtest.a and gtest_main.a.
-GTEST_SRCS_ = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
-
-gtest-all.o : $(GTEST_SRCS_)
-	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
-            $(GTEST_DIR)/src/gtest-all.cc
-
-gtest_main.o : $(GTEST_SRCS_)
-	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
-            $(GTEST_DIR)/src/gtest_main.cc
-
-gtest.a : gtest-all.o
-	$(AR) $(ARFLAGS) $@ $^
-
-gtest_main.a : gtest-all.o gtest_main.o
-	$(AR) $(ARFLAGS) $@ $^
 
 # Builds the Field class and associated FieldTest
 Field.o : Field.cpp Field.h $(GTEST_HEADERS)
