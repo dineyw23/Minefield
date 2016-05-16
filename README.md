@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/dineyw23/Minefield.svg?branch=master)](https://travis-ci.org/dineyw23/Minefield)
+
 # Minefield
 
 This project can be used to keep track of a simplistic [Minesweeper](https://en.wikipedia.org/wiki/Minesweeper_%28video_game%29)-like game that has a 10x10 field where mines can be placed. Initially, the mines are hidden and the user makes guesses to try to find all the empty spaces *without* choosing any of the hidden mines.
